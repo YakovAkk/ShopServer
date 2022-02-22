@@ -11,10 +11,10 @@ namespace Server.Controllers
     {
         BaseServiceForMongo<BasketModel> _basketService;
 
-        [HttpPost("addlego")]
-        public async Task<IActionResult> AddLego([FromBody] BasketModel legoModel)
+        [HttpPost]
+        public async Task<IActionResult> AddLego([FromBody] BasketModel basketModel)
         {
-            return Ok(await _basketService.Add(legoModel));
+            return Ok(await _basketService.Add(basketModel));
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLego([FromQuery] string Id)
@@ -30,9 +30,9 @@ namespace Server.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] BasketModel legoModel)
+        public async Task<IActionResult> Update([FromBody] BasketModel basketModel)
         {
-            return Ok(await _basketService.Update(legoModel));
+            return Ok(await _basketService.Update(basketModel));
         }
 
         [HttpGet("id")]

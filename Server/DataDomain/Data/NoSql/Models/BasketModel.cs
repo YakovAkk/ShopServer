@@ -11,7 +11,7 @@ namespace DataDomain.Data.NoSql.Models
     public class BasketModel : IModel
     {
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
         public LegoModel Lego { get; set; }
         public uint Amount { get; set; }
         public UserModel User { get; set; }

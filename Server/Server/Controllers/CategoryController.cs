@@ -1,4 +1,5 @@
 ﻿using DataDomain.Data.NoSql.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Services.Base;
@@ -7,14 +8,15 @@ namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous] // delete when add Category to database
     public class CategoryController : ControllerBase
     {
         BaseServiceForMongo<CategoryModel> _categoryService;
 
-        [HttpPost("addlego")]
-        public async Task<IActionResult> AddLego([FromBody] CategoryModel legoModel)
+        [HttpPost]
+        public async Task<IActionResult> AddLego([FromBody] CategoryModel categoryModel)
         {
-            return Ok(await _categoryService.Add(legoModel));
+            return Ok(await _categoryService.Add(categoryModel));
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLego([FromQuery] string Id)
@@ -30,9 +32,9 @@ namespace Server.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] CategoryModel legoModel)
+        public async Task<IActionResult> Update([FromBody] CategoryModel categoryModel)
         {
-            return Ok(await _categoryService.Update(legoModel));
+            return Ok(await _categoryService.Update(categoryModel));
         }
 
         [HttpGet("id")]

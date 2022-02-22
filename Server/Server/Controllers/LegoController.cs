@@ -1,5 +1,5 @@
 ﻿using DataDomain.Data.NoSql.Models;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Services.Base;
 
@@ -7,11 +7,12 @@ namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous] // delete when add Lego to database
     public class LegoController : ControllerBase
     {
         BaseServiceForMongo<LegoModel> _legoService;
 
-        [HttpPost("addlego")]
+        [HttpPost]
         public async Task<IActionResult> AddLego([FromBody] LegoModel legoModel)
         {
             return Ok(await _legoService.Add(legoModel));

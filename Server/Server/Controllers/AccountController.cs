@@ -9,7 +9,7 @@ namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
+    [AllowAnonymous] 
     public class AccountController : ControllerBase
     {
         private IUserService _userService;

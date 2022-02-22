@@ -8,6 +8,6 @@ namespace DataDomain.Data.NoSql.Models.Base
 {
     public interface IModel
     {
-        public string Id { get; set; }
+        public string? Id { get; set; }
     }
 }

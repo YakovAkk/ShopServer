@@ -10,8 +10,9 @@ namespace DataDomain.Data.NoSql.Models
     public class CategoryModel : IModel
     {
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
         public string Name { get; set; }
+        public string ImageUrl { get; set; }
 
     }
 }
