@@ -1,9 +1,7 @@
 ﻿
 using DataDomain.Data.Sql.Models;
-using Microsoft.AspNetCore.Identity;
 using Repositories.Repositories.Base;
 using Services.Services.Base;
-
 
 namespace Services.Services
 {
