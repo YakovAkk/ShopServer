@@ -9,7 +9,7 @@ namespace Services.Services
 {
     public class UserService : IUserService
     {
-        private BaseRepository<UserModel> _userRepository;
+        private readonly BaseRepository<UserModel> _userRepository;
 
         public async Task<List<UserModel>> GetAllUsers()
         {

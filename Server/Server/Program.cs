@@ -1,4 +1,5 @@
 
+using DataDomain.Data.NoSql.Models;
 using DataDomain.Data.Sql.Database;
 using DataDomain.Data.Sql.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Repositories;
 using Repositories.Repositories.Base;
+using Repositories.RepositoriesMongo;
+using Repositories.RepositoriesMongo.Base;
 using Services.Services;
 using Services.Services.Base;
 
@@ -26,8 +29,18 @@ builder.Services.AddMvcCore(config =>
 
 /// /////////////////////////
 
-builder.Services.AddTransient<IUserService, UserService>();
+
 builder.Services.AddTransient<BaseRepository<UserModel>, UserRepository>();
+builder.Services.AddTransient<IUserService, UserService>();
+
+builder.Services.AddTransient<MongoDbBase<BasketModel>, BasketRepository>();
+builder.Services.AddTransient<IMongoService<BasketModel>, BasketService>();
+
+builder.Services.AddTransient<MongoDbBase<CategoryModel>, CategoryRepositoty>();
+builder.Services.AddTransient<IMongoService<CategoryModel>, CategoryService>();
+
+builder.Services.AddTransient<MongoDbBase<LegoModel>, LegoRepository>();
+builder.Services.AddTransient<IMongoService<LegoModel>, LegoService>();
 
 builder.Services.AddDbContext<AppDBContent>(options =>
 options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=LegoDB;Trusted_Connection=True;TrustServerCertificate=True;"));
