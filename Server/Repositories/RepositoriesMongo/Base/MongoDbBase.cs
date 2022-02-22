@@ -1,13 +1,13 @@
 ﻿using DataDomain.Attributes;
 using DataDomain.Data.NoSql.Database;
+using DataDomain.Data.NoSql.Models.Base;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
 
 namespace Repositories.RepositoriesMongo.Base
 {
-    
-    public abstract class MongoDbBase<T> : IMongoDB<T>
+    public abstract class MongoDbBase<T> : IMongoDB<T> where T : IModel
     {
         private readonly IMongoDatabase _db;
         abstract protected IMongoCollection<T> Collection { get; set; }
@@ -16,7 +16,6 @@ namespace Repositories.RepositoriesMongo.Base
             _db = new MongoDatabase().GetConnectionToDB();
             Collection = _db.GetCollection<T>(GetNameAtributes() == "" ? GetNameAtributes() : nameof(T));
         }
-
         public string GetNameAtributes()
         {
             var type = typeof(T);
@@ -29,9 +28,11 @@ namespace Repositories.RepositoriesMongo.Base
             }
             return "";
         }
-
         public abstract Task<T> Add(T item);
-        public abstract Task Delete(string id);
+        public async virtual Task Delete(string id)
+        {
+            await Collection.DeleteOneAsync(i => i.Id == id);
+        }
         public async virtual Task<List<T>> GetAll()
         {
             return await Collection.Find(_ => true).ToListAsync();

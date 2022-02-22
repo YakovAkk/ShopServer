@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Repositories.RepositoriesMongo.Base
 {
-    public interface IMongoDB<T>
+    public interface IMongoDB<T> 
     {
         Task<List<T>> GetAll();
         Task<T> GetByID(string id);

@@ -21,14 +21,11 @@ namespace Repositories.RepositoriesMongo
 
             return item;
         }
-        public async override Task Delete(string id)
-        {
-            await Collection.DeleteOneAsync(i => i.Id == id);
-        }
         public async override Task<LegoModel> Update(LegoModel item)
         {
             await Collection.UpdateOneAsync(i => i.Id == item.Id, Builders<LegoModel>.
-                Update.Set(c => c.Name, item.Name));
+                Update.Set(c => c.Name, item.Name).Set(c => c.Description, item.Description).
+                Set(c=> c.ImageUrl, item.ImageUrl).Set(c => c.Category, item.Category));
 
             return item;
         }
