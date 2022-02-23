@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="ServicesTest\" />
-    <Folder Include="ServerTest\" />
   </ItemGroup>
 
   <ItemGroup>

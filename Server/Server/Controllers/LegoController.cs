@@ -25,19 +25,19 @@ namespace Server.Controllers
         }
 
         [HttpGet("all")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllLego()
         {
             return Ok(await _legoService.GetAll());
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] LegoModel legoModel)
+        public async Task<IActionResult> UpdateLego([FromBody] LegoModel legoModel)
         {
             return Ok(await _legoService.Update(legoModel));
         }
 
         [HttpGet("id")]
-        public async Task<IActionResult> GetById([FromQuery] string Id)
+        public async Task<IActionResult> GetByIdLego([FromQuery] string Id)
         {
             return Ok(await _legoService.GetByID(Id));
         }

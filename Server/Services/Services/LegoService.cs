@@ -8,6 +8,7 @@ namespace Services.Services
     {
         public LegoService(MongoDbBase<LegoModel> repository) : base(repository)
         {
+
         }
     }
 }
