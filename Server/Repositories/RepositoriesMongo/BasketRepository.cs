@@ -1,4 +1,6 @@
-﻿using DataDomain.Data.NoSql.Models;
+﻿using DataDomain.Data.NoSql.Database;
+using DataDomain.Data.NoSql.Models;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Repositories.RepositoriesMongo.Base;
 using System;

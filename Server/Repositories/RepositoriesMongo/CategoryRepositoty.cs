@@ -1,4 +1,6 @@
-﻿using DataDomain.Data.NoSql.Models;
+﻿using DataDomain.Data.NoSql.Database;
+using DataDomain.Data.NoSql.Models;
+using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Repositories.RepositoriesMongo.Base;
@@ -9,6 +11,7 @@ namespace Repositories.RepositoriesMongo
     
     public class CategoryRepositoty : MongoDbBase<CategoryModel>
     {
+
         protected override IMongoCollection<CategoryModel> Collection { get; set; }
         public override async Task<CategoryModel> Add(CategoryModel item)
         {

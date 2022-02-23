@@ -1,4 +1,5 @@
 
+using DataDomain.Data.NoSql.Database;
 using DataDomain.Data.NoSql.Models;
 using DataDomain.Data.Sql.Database;
 using DataDomain.Data.Sql.Models;
@@ -27,6 +28,7 @@ builder.Services.AddMvcCore(config =>
     config.Filters.Add(new AuthorizeFilter(policy));
 });
 
+
 /// /////////////////////////
 
 
@@ -34,18 +36,18 @@ builder.Services.AddTransient<BaseRepository<UserModel>, UserRepository>();
 builder.Services.AddTransient<IUserService, UserService>();
 
 builder.Services.AddTransient<MongoDbBase<BasketModel>, BasketRepository>();
-builder.Services.AddTransient<IMongoService<BasketModel>, BasketService>();
+builder.Services.AddTransient<BaseServiceForMongo<BasketModel>, BasketService>();
 
 builder.Services.AddTransient<MongoDbBase<CategoryModel>, CategoryRepositoty>();
-builder.Services.AddTransient<IMongoService<CategoryModel>, CategoryService>();
+builder.Services.AddTransient<BaseServiceForMongo<CategoryModel>, CategoryService>();
 
 builder.Services.AddTransient<MongoDbBase<LegoModel>, LegoRepository>();
-builder.Services.AddTransient<IMongoService<LegoModel>, LegoService>();
+builder.Services.AddTransient<BaseServiceForMongo<LegoModel>, LegoService>();
 
 builder.Services.AddDbContext<AppDBContent>(options =>
 options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=LegoDB;Trusted_Connection=True;TrustServerCertificate=True;"));
 
-
+builder.Services.AddSingleton<MongoDatabase>();
 
 //Identity has been registered  here 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDBContent>();

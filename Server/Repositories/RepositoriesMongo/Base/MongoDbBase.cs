@@ -1,6 +1,7 @@
 ﻿using DataDomain.Attributes;
 using DataDomain.Data.NoSql.Database;
 using DataDomain.Data.NoSql.Models.Base;
+using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -14,7 +15,7 @@ namespace Repositories.RepositoriesMongo.Base
         public MongoDbBase()
         {
             _db = new MongoDatabase().GetConnectionToDB();
-            Collection = _db.GetCollection<T>(GetNameAtributes() == "" ? GetNameAtributes() : nameof(T));
+            Collection = _db.GetCollection<T>(GetNameAtributes() == "" ? typeof(T).Name : GetNameAtributes());
         }
         public string GetNameAtributes()
         {

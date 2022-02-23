@@ -1,18 +1,12 @@
 ﻿using DataDomain.Data.NoSql.Models;
 using MongoDB.Driver;
 using Repositories.RepositoriesMongo.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repositories.RepositoriesMongo
 {
     public class LegoRepository : MongoDbBase<LegoModel>
     {
         protected override IMongoCollection<LegoModel> Collection { get ; set ; }
-
         public async override Task<LegoModel> Add(LegoModel item)
         {
             var document = new LegoModel() { Name = item.Name , Category = item.Category, ImageUrl = item.ImageUrl };
