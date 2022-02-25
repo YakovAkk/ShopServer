@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Server.DTO;
 using Services.Services.Base;
 
 namespace Server.Controllers
@@ -14,14 +15,29 @@ namespace Server.Controllers
     {
         private IUserService _userService;
         [HttpPost("Register")]
-        public async Task<IActionResult> RegisterUser([FromBody] UserModel loginUser)
+        public async Task<IActionResult> RegisterUser([FromBody] UserRegistrationDTO registrationUser)
         {
-            return Ok(await _userService.RegisterUser(loginUser));
+            var user = new UserModel()
+            {
+                NickName = registrationUser.NickName,
+                Name = registrationUser.Email,
+                Email = registrationUser.Email,
+                Password = registrationUser.Password
+            };
+            return Ok(await _userService.RegisterUser(user));
         }
         [HttpPost("Login")]
-        public async Task<IActionResult> LoginUser([FromBody] UserModel loginUser)
+        public async Task<IActionResult> LoginUser([FromBody] UserLoginDTO loginUser)
         {
-            return Ok(await _userService.LoginUser(loginUser));
+            var user = new UserModel()
+            {
+                Name = loginUser.Email,
+                Email = loginUser.Email,
+                Password = loginUser.Password,
+                RememberMe = loginUser.RememberMe
+            };
+
+            return Ok(await _userService.LoginUser(user));
         }
         [HttpPost("Logout")]
         public async Task<IActionResult> logoutUser()
