@@ -51,10 +51,9 @@ namespace Repositories.Repositories
         {
             var result = await _signInManager.PasswordSignInAsync(item.Name,
                      item.Password, item.RememberMe, false);
-
             if (result.Succeeded)
             {
-                return item; 
+                return await _db.Users.FirstOrDefaultAsync(u => u.Name == item.Name); 
             }
             return null;
 
