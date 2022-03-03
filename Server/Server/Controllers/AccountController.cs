@@ -40,10 +40,10 @@ namespace Server.Controllers
             return Ok(await _userService.LoginUser(user));
         }
         [HttpPost("Logout")]
-        public async Task<IActionResult> logoutUser()
+        public async Task<IActionResult> logoutUser([FromBody] UserLoginDTO loginUser)
         {
             await _userService.LogoutUser();
-            return Ok();
+            return Ok(loginUser);
         }
         public AccountController(IUserService userService)
         {
