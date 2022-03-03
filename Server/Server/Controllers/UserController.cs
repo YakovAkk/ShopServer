@@ -7,13 +7,13 @@ namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
+    [Authorize]
     public class UserController : ControllerBase
     {
         private IUserService _userService;
 
         [HttpGet]
-        [Authorize]
+        
         public async Task<IActionResult> GetAllUsers()
         {
             return Ok(await _userService.GetAllUsers());

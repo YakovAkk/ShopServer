@@ -1,4 +1,5 @@
 ﻿using DataDomain.Data.NoSql.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Services.Base;
@@ -7,6 +8,7 @@ namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BasketController : ControllerBase
     {
         BaseServiceForMongo<BasketModel> _basketService;
