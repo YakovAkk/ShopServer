@@ -1,5 +1,7 @@
 ﻿
 
+using System.Security.Claims;
+
 namespace DataDomain.Data.Sql.Models
 {
     public class UserModel

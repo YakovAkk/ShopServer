@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Server.DTO;
+using Server.Token;
 using Services.Services.Base;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Server.Controllers
 {
@@ -37,7 +40,31 @@ namespace Server.Controllers
                 RememberMe = loginUser.RememberMe
             };
 
-            return Ok(await _userService.LoginUser(user));
+            var authUser = await _userService.LoginUser(user);
+
+            if (authUser == null)
+            {
+                return BadRequest(new { errorText = "Invalid username or password." });
+            }
+
+            var now = DateTime.UtcNow;
+
+            var jwt = new JwtSecurityToken(
+                    issuer: AuthOptions.ISSUER,
+                    audience: AuthOptions.AUDIENCE,
+                    notBefore: now,
+                    claims: authUser.Claims,
+                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            var response = new
+            {
+                access_token = encodedJwt,
+                username = user.Name
+            };
+
+            return Ok(response);
         }
         [HttpPost("Logout")]
         public async Task<IActionResult> logoutUser([FromBody] UserLoginDTO loginUser)

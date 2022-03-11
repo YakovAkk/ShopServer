@@ -13,7 +13,6 @@ namespace Server.Controllers
         private IUserService _userService;
 
         [HttpGet]
-        
         public async Task<IActionResult> GetAllUsers()
         {
             return Ok(await _userService.GetAllUsers());
