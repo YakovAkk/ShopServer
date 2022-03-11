@@ -56,8 +56,6 @@ namespace Repositories.Repositories
                 return await _db.Users.FirstOrDefaultAsync(u => u.Name == item.Name); 
             }
             return null;
-
-            
         }
 
         public override async Task Logout()

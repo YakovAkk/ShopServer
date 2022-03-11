@@ -3,6 +3,7 @@ using DataDomain.Data.NoSql.Database;
 using DataDomain.Data.NoSql.Models;
 using DataDomain.Data.Sql.Database;
 using DataDomain.Data.Sql.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -28,6 +29,12 @@ builder.Services.AddMvcCore(config =>
     config.Filters.Add(new AuthorizeFilter(policy));
 });
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+        {
+            options.SlidingExpiration = true;
+            options.ExpireTimeSpan = new TimeSpan(0, 1, 0);
+        });
 
 /// /////////////////////////
 

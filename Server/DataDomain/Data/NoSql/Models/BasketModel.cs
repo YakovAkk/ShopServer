@@ -13,8 +13,8 @@ namespace DataDomain.Data.NoSql.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
         public LegoModel Lego { get; set; }
-        public uint Amount { get; set; }
         public UserModel User { get; set; }
+        public uint Amount { get; set; }
         public DateTime DateDeal { get; set; }
 
         public BasketModel()
