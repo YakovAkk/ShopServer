@@ -2,7 +2,6 @@
 using DataDomain.Data.Sql.Models;
 using Repositories.Repositories.Base;
 using Services.Services.Base;
-using System.Security.Claims;
 
 namespace Services.Services
 {
@@ -20,23 +19,9 @@ namespace Services.Services
             return await _userRepository.Create(loginUser);
         }
 
-        public async Task<ClaimsIdentity> LoginUser(UserModel loginUser)
+        public async Task<UserModel> LoginUser(UserModel loginUser)
         {
-            var user = await _userRepository.Login(loginUser);
-            if (user == null)
-            {
-                return null; 
-            }
-            var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name),
-                };
-            ClaimsIdentity claimsIdentity =
-            new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType);
-            return claimsIdentity;
-            // если пользователя не найдено
-
+            return await _userRepository.Login(loginUser);
         }
 
         public async Task LogoutUser()
