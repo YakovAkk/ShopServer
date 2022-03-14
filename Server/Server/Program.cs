@@ -19,9 +19,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddCors();
 
-
-/// ///////////////////// // Error 404
+/// ///////////////////// // 
 
 builder.Services.AddMvcCore(config =>
 {
@@ -79,7 +79,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(options =>
 {
-    options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    options.
+    AllowAnyMethod().
+    AllowAnyHeader().
+    SetIsOriginAllowed(origin => true).
+    AllowCredentials();
+
 });
 
 app.UseHttpsRedirection();
