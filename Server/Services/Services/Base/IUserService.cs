@@ -10,7 +10,7 @@ namespace Services.Services.Base
 {
     public interface IUserService
     {
-
+        Task<UserModel> FindByEmail(string usersEmail);
         Task<List<UserModel>> GetAllUsers();
         Task<UserModel> RegisterUser(UserModel loginUser);
         Task<UserModel> LoginUser(UserModel loginUser);

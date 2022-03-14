@@ -10,7 +10,7 @@ namespace Server.Controllers
     [Authorize]
     public class UserController : ControllerBase
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
 
         [HttpGet]
         

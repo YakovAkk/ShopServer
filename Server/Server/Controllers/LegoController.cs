@@ -10,7 +10,7 @@ namespace Server.Controllers
     [AllowAnonymous] // delete when add Lego to database
     public class LegoController : ControllerBase
     {
-        BaseServiceForMongo<LegoModel> _legoService;
+        private readonly BaseServiceForMongo<LegoModel> _legoService;
 
         [HttpPost]
         public async Task<IActionResult> AddLego([FromBody] LegoModel legoModel)

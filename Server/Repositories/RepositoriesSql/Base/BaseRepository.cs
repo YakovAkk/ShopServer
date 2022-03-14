@@ -1,5 +1,6 @@
 ﻿
 using DataDomain.Data.Sql.Database;
+using DataDomain.Data.Sql.Models;
 
 namespace Repositories.Repositories.Base
 {
@@ -13,10 +14,13 @@ namespace Repositories.Repositories.Base
 
         public abstract Task<T> Create(T item);
 
+        public abstract Task<T> FindUserByEmail(string usersEmail);
+
         public abstract Task<List<T>> GetAll();
 
         public abstract Task<T> Login(T item);
 
         public abstract Task Logout();
+
     }
 }

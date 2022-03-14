@@ -1,7 +1,9 @@
 ﻿using DataDomain.Data.NoSql.Models;
+using DataDomain.Data.Sql.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Server.DTO;
 using Services.Services.Base;
 
 namespace Server.Controllers
@@ -11,12 +13,19 @@ namespace Server.Controllers
     [Authorize]
     public class BasketController : ControllerBase
     {
-        BaseServiceForMongo<BasketModel> _basketService;
-
+        private readonly BaseServiceForMongo<BasketModel> _basketService;
+        private readonly IUserService _userService;
         [HttpPost]
-        public async Task<IActionResult> AddBasket([FromBody] BasketModel basketModel)
+        public async Task<IActionResult> AddBasket([FromBody] BasketModelDTO basketModel)
         {
-            return Ok(await _basketService.Add(basketModel));
+            var basket = new BasketModel()
+            {
+                Amount = Convert.ToUInt32(basketModel.amount),
+                Lego = basketModel.lego,
+                User = await _userService.FindByEmail(basketModel.userEmail)
+            };
+            return Ok(await _basketService.Add(basket));
+            
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBasket([FromQuery] string Id)
@@ -34,7 +43,7 @@ namespace Server.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateBasket([FromBody] BasketModel basketModel)
         {
-            return Ok(await _basketService.Update(basketModel));
+            return Ok(await _basketService.Add(basketModel));
         }
 
         [HttpGet("id")]
@@ -43,9 +52,10 @@ namespace Server.Controllers
             return Ok(await _basketService.GetByID(Id));
         }
 
-        public BasketController(BaseServiceForMongo<BasketModel> basketService)
+        public BasketController(BaseServiceForMongo<BasketModel> basketService, IUserService userService)
         {
             _basketService = basketService;
+            _userService = userService;
         }
     }
 }

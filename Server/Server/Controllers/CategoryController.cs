@@ -11,7 +11,7 @@ namespace Server.Controllers
     [AllowAnonymous] // delete when add Category to database
     public class CategoryController : ControllerBase
     {
-        BaseServiceForMongo<CategoryModel> _categoryService;
+        private readonly BaseServiceForMongo<CategoryModel> _categoryService;
 
         [HttpPost]
         public async Task<IActionResult> AddCategory([FromBody] CategoryModel categoryModel)

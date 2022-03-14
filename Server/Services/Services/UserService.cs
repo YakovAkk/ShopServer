@@ -29,6 +29,11 @@ namespace Services.Services
             await _userRepository.Logout();
         }
 
+        public async Task<UserModel> FindByEmail(string usersEmail)
+        {
+          return await _userRepository.FindUserByEmail(usersEmail);
+        }
+
         public UserService(BaseRepository<UserModel> baseRepository)
         {
             _userRepository = baseRepository;

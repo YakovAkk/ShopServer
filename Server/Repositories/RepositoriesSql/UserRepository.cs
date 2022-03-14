@@ -42,6 +42,11 @@ namespace Repositories.Repositories
             
         }
 
+        public override async Task<UserModel> FindUserByEmail(string usersEmail)
+        {
+            return await _db.Users.FirstOrDefaultAsync(u => u.Email == usersEmail);
+        }
+
         public override async Task<List<UserModel>> GetAll()
         {
             return await _db.Users.ToListAsync();

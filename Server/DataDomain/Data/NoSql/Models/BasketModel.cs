@@ -19,7 +19,7 @@ namespace DataDomain.Data.NoSql.Models
 
         public BasketModel()
         {
-            
+            DateDeal = DateTime.Now;
         }
 
         public BasketModel(LegoModel lego, uint amount ,UserModel user )

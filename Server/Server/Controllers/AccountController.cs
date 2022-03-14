@@ -13,7 +13,7 @@ namespace Server.Controllers
     [AllowAnonymous] 
     public class AccountController : ControllerBase
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterUser([FromBody] UserRegistrationDTO registrationUser)
         {
