@@ -28,7 +28,7 @@ namespace Server.Controllers
             
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBasket([FromQuery] string Id)
+        public async Task<IActionResult> DeleteBasket([FromRoute] string Id)
         {
             await _basketService.Delete(Id);
             return Ok();
