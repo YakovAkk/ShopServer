@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Services.Services.Base
 {
     public interface ISendToMail
     {
-        Task<bool> SendToMailAsync(string Email, string letter);
+        Task SendToMailAsync(MailRequest mailRequest);
     }
 }

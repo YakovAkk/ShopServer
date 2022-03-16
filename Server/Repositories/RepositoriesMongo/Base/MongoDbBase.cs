@@ -1,7 +1,6 @@
 ﻿using DataDomain.Attributes;
 using DataDomain.Data.NoSql.Database;
 using DataDomain.Data.NoSql.Models.Base;
-using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 

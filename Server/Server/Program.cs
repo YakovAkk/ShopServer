@@ -14,12 +14,16 @@ using Repositories.RepositoriesMongo;
 using Repositories.RepositoriesMongo.Base;
 using Services.Services;
 using Services.Services.Base;
+using Services.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddCors();
+builder.Services.AddCors(c =>
+{
+    c.AddPolicy("AllowOrigin", option => option.AllowAnyOrigin());
+});
 
 /// ///////////////////// // 
 
@@ -37,7 +41,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         });
 
 /// /////////////////////////
-
+builder.Services.AddTransient<ISendToMail, SendToMailService>();
 
 builder.Services.AddTransient<BaseRepository<UserModel>, UserRepository>();
 builder.Services.AddTransient<IUserService, UserService>();
