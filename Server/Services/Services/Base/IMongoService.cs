@@ -8,10 +8,10 @@ namespace Services.Services.Base
 {
     public interface IMongoService<T>
     {
-        Task<T> Add(T item);
-        Task<T> Update(T item);
-        Task Delete(string id);
-        Task<T> GetByID(string id);
-        Task<List<T>> GetAll();
+        Task<T> AddAsync(T item);
+        Task<T> UpdateAsync(T item);
+        Task DeleteAsync(string id);
+        Task<T> GetByIDAsync(string id);
+        Task<List<T>> GetAllAsync();
     }
 }

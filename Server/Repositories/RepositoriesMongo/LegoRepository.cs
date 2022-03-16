@@ -7,7 +7,7 @@ namespace Repositories.RepositoriesMongo
     public class LegoRepository : MongoDbBase<LegoModel>
     {
         protected override IMongoCollection<LegoModel> Collection { get ; set ; }
-        public async override Task<LegoModel> Add(LegoModel item)
+        public async override Task<LegoModel> AddAsync(LegoModel item)
         {
             var document = new LegoModel() { 
                 Name = item.Name, 
@@ -21,7 +21,7 @@ namespace Repositories.RepositoriesMongo
 
             return item;
         }
-        public async override Task<LegoModel> Update(LegoModel item)
+        public async override Task<LegoModel> UpdateAsync(LegoModel item)
         {
             await Collection.UpdateOneAsync(i => i.Id == item.Id, Builders<LegoModel>.
                 Update.Set(c => c.Name, item.Name).Set(c => c.Description, item.Description).

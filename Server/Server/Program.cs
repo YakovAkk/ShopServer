@@ -51,6 +51,8 @@ builder.Services.AddTransient<BaseServiceForMongo<CategoryModel>, CategoryServic
 builder.Services.AddTransient<MongoDbBase<LegoModel>, LegoRepository>();
 builder.Services.AddTransient<BaseServiceForMongo<LegoModel>, LegoService>();
 
+builder.Services.AddTransient<ISendToMail, SendToMailService>();
+
 builder.Services.AddDbContext<AppDBContent>(options =>
 options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=LegoDB;Trusted_Connection=True;TrustServerCertificate=True;"));
 

@@ -8,10 +8,10 @@ namespace Repositories.Repositories.Base
 {
     public interface IRepository<T>
     {
-        Task<T> FindUserByEmail(string usersEmail);
-        Task<List<T>> GetAll();
-        Task<T> Create(T item);
-        Task<T> Login(T item);
-        Task Logout();
+        Task<T> FindUserByEmailAsync(string usersEmail);
+        Task<List<T>> GetAllAsync();
+        Task<T> CreateAsync(T item);
+        Task<T> LoginAsync(T item);
+        Task LogoutAsync();
     }
 }

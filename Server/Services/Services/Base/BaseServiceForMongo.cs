@@ -7,25 +7,25 @@ namespace Services.Services.Base
     public abstract class BaseServiceForMongo<T> : IMongoService<T> where T : IModel  
     {
         private readonly MongoDbBase<T> _repository;
-        public async Task<T> Add(T item)
+        public async Task<T> AddAsync(T item)
         {
-           return await _repository.Add(item);
+           return await _repository.AddAsync(item);
         }
-        public async Task Delete(string id)
+        public async Task DeleteAsync(string id)
         {
-            await _repository.Delete(id);
+            await _repository.DeleteAsync(id);
         }
-        public async Task<List<T>> GetAll()
+        public async Task<List<T>> GetAllAsync()
         {
-            return await _repository.GetAll();
+            return await _repository.GetAllAsync();
         }
-        public async Task<T> GetByID(string id)
+        public async Task<T> GetByIDAsync(string id)
         {
-            return await _repository.GetByID(id);
+            return await _repository.GetByIDAsync(id);
         }
-        public async Task<T> Update(T item)
+        public async Task<T> UpdateAsync(T item)
         {
-            return await _repository.Update(item);
+            return await _repository.UpdateAsync(item);
         }
         public BaseServiceForMongo(MongoDbBase<T> repository)
         {

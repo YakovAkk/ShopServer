@@ -9,29 +9,29 @@ namespace Services.Services
     {
         private readonly BaseRepository<UserModel> _userRepository;
 
-        public async Task<List<UserModel>> GetAllUsers()
+        public async Task<List<UserModel>> GetAllUsersAsync()
         {
-           return await _userRepository.GetAll();
+           return await _userRepository.GetAllAsync();
         }
 
-        public async Task<UserModel> RegisterUser(UserModel loginUser)
+        public async Task<UserModel> RegisterUserAsync(UserModel loginUser)
         {
-            return await _userRepository.Create(loginUser);
+            return await _userRepository.CreateAsync(loginUser);
         }
 
-        public async Task<UserModel> LoginUser(UserModel loginUser)
+        public async Task<UserModel> LoginUserAsync(UserModel loginUser)
         {
-            return await _userRepository.Login(loginUser);
+            return await _userRepository.LoginAsync(loginUser);
         }
 
-        public async Task LogoutUser()
+        public async Task LogoutUserAsync()
         {
-            await _userRepository.Logout();
+            await _userRepository.LogoutAsync();
         }
 
-        public async Task<UserModel> FindByEmail(string usersEmail)
+        public async Task<UserModel> FindByEmailAsync(string usersEmail)
         {
-          return await _userRepository.FindUserByEmail(usersEmail);
+          return await _userRepository.FindUserByEmailAsync(usersEmail);
         }
 
         public UserService(BaseRepository<UserModel> baseRepository)

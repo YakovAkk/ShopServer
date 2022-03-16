@@ -16,7 +16,7 @@ namespace Server.Controllers
         
         public async Task<IActionResult> GetAllUsers()
         {
-            return Ok(await _userService.GetAllUsers());
+            return Ok(await _userService.GetAllUsersAsync());
         }
 
 

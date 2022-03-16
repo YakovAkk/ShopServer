@@ -29,19 +29,19 @@ namespace Repositories.RepositoriesMongo.Base
             }
             return "";
         }
-        public abstract Task<T> Add(T item);
-        public async virtual Task Delete(string id)
+        public abstract Task<T> AddAsync(T item);
+        public async virtual Task DeleteAsync(string id)
         {
             await Collection.DeleteOneAsync(i => i.Id == id);
         }
-        public async virtual Task<List<T>> GetAll()
+        public async virtual Task<List<T>> GetAllAsync()
         {
             return await Collection.Find(_ => true).ToListAsync();
         }
-        public async virtual Task<T> GetByID(string id)
+        public async virtual Task<T> GetByIDAsync(string id)
         {
             return await Collection.Find(new BsonDocument("_id", new ObjectId(id))).FirstOrDefaultAsync();
         }
-        public abstract Task<T> Update(T item);
+        public abstract Task<T> UpdateAsync(T item);
     }
 }

@@ -21,7 +21,7 @@ namespace Repositories.Repositories
             _signInManager = signInManager;
         }
 
-        public override async Task<UserModel> Create(UserModel item)
+        public override async Task<UserModel> CreateAsync(UserModel item)
         {
             var user = new IdentityUser
             {
@@ -42,17 +42,17 @@ namespace Repositories.Repositories
             
         }
 
-        public override async Task<UserModel> FindUserByEmail(string usersEmail)
+        public override async Task<UserModel> FindUserByEmailAsync(string usersEmail)
         {
             return await _db.Users.FirstOrDefaultAsync(u => u.Email == usersEmail);
         }
 
-        public override async Task<List<UserModel>> GetAll()
+        public override async Task<List<UserModel>> GetAllAsync()
         {
             return await _db.Users.ToListAsync();
         }
 
-        public async override Task<UserModel> Login(UserModel item)
+        public async override Task<UserModel> LoginAsync(UserModel item)
         {
             var result = await _signInManager.PasswordSignInAsync(item.Name,
                      item.Password, item.RememberMe, false);
@@ -63,7 +63,7 @@ namespace Repositories.Repositories
             return null;
         }
 
-        public override async Task Logout()
+        public override async Task LogoutAsync()
         {
             await _signInManager.SignOutAsync();
         }

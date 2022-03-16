@@ -4,11 +4,11 @@ namespace Repositories.RepositoriesMongo.Base
 {
     public interface IMongoDB<T> 
     {
-        Task<List<T>> GetAll();
-        Task<T> GetByID(string id);
-        Task<T> Add(T item);
-        Task Delete(string id);
-        Task<T> Update(T item);
+        Task<List<T>> GetAllAsync();
+        Task<T> GetByIDAsync(string id);
+        Task<T> AddAsync(T item);
+        Task DeleteAsync(string id);
+        Task<T> UpdateAsync(T item);
 
     }
 }

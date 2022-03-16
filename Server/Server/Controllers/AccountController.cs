@@ -24,7 +24,7 @@ namespace Server.Controllers
                 Email = registrationUser.Email,
                 Password = registrationUser.Password
             };
-            return Ok(await _userService.RegisterUser(user));
+            return Ok(await _userService.RegisterUserAsync(user));
         }
         [HttpPost("Login")]
         public async Task<IActionResult> LoginUser([FromBody] UserLoginDTO loginUser)
@@ -37,12 +37,12 @@ namespace Server.Controllers
                 RememberMe = loginUser.RememberMe
             };
 
-            return Ok(await _userService.LoginUser(user));
+            return Ok(await _userService.LoginUserAsync(user));
         }
         [HttpPost("Logout")]
         public async Task<IActionResult> logoutUser([FromBody] UserLoginDTO loginUser)
         {
-            await _userService.LogoutUser();
+            await _userService.LogoutUserAsync();
             return Ok(loginUser);
         }
         public AccountController(IUserService userService)

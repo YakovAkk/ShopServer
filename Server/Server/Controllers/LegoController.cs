@@ -15,31 +15,31 @@ namespace Server.Controllers
         [HttpPost]
         public async Task<IActionResult> AddLego([FromBody] LegoModel legoModel)
         {
-            return Ok(await _legoService.Add(legoModel));
+            return Ok(await _legoService.AddAsync(legoModel));
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLego([FromQuery] string Id)
         {
-            await _legoService.Delete(Id);
+            await _legoService.DeleteAsync(Id);
             return Ok();
         }
 
         [HttpGet("all")]
         public async Task<IActionResult> GetAllLego()
         {
-            return Ok(await _legoService.GetAll());
+            return Ok(await _legoService.GetAllAsync());
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateLego([FromBody] LegoModel legoModel)
         {
-            return Ok(await _legoService.Update(legoModel));
+            return Ok(await _legoService.UpdateAsync(legoModel));
         }
 
         [HttpGet("id")]
         public async Task<IActionResult> GetByIdLego([FromQuery] string Id)
         {
-            return Ok(await _legoService.GetByID(Id));
+            return Ok(await _legoService.GetByIDAsync(Id));
         }
 
         public LegoController(BaseServiceForMongo<LegoModel> legoService)
