@@ -41,9 +41,16 @@ namespace Server.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateBasket([FromBody] BasketModel basketModel)
+        public async Task<IActionResult> UpdateBasket([FromBody] BasketModelDTO basketModel)
         {
-            return Ok(await _basketService.AddAsync(basketModel));
+            var basket = new BasketModel()
+            {
+                Amount = Convert.ToUInt32(basketModel.amount),
+                Lego = basketModel.lego,
+                User = await _userService.FindByEmailAsync(basketModel.userEmail)
+            };
+
+            return Ok(await _basketService.UpdateAsync(basket));
         }
 
         [HttpGet("id")]
