@@ -10,11 +10,18 @@ namespace Repositories.RepositoriesMongo
         protected override IMongoCollection<BasketModel> Collection { get; set; }
         public override async Task<BasketModel> AddAsync(BasketModel item)
         {
-            var document = new BasketModel(item.Lego, item.Amount, item.User);
+            var Lego = await GetAllAsync();
+            var updateLego = Lego.FirstOrDefault(i => (i.Lego.Name == item.Lego.Name) && (i.User.Name == item.User.Name));
+            if (updateLego == null)
+            {
+                var document = new BasketModel(item.Lego, item.Amount, item.User);
 
-            await Collection.InsertOneAsync(document);
+                await Collection.InsertOneAsync(document);
 
-            return item;
+                return item;
+            }
+            return null;
+           
         }
         public override async Task<BasketModel> UpdateAsync(BasketModel item)
         {

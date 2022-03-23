@@ -18,6 +18,8 @@ namespace Repositories.Repositories.Base
 
         public abstract Task<List<T>> GetAllAsync();
 
+        public abstract Task<bool> isDataBaseHasUser(T item);
+
         public abstract Task<T> LoginAsync(T item);
 
         public abstract Task LogoutAsync();

@@ -13,5 +13,6 @@ namespace Repositories.Repositories.Base
         Task<T> CreateAsync(T item);
         Task<T> LoginAsync(T item);
         Task LogoutAsync();
+        Task<bool> isDataBaseHasUser(T item);
     }
 }

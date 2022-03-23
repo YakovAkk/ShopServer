@@ -31,7 +31,12 @@ namespace Services.Services
 
         public async Task<UserModel> FindByEmailAsync(string usersEmail)
         {
-          return await _userRepository.FindUserByEmailAsync(usersEmail);
+           return await _userRepository.FindUserByEmailAsync(usersEmail);
+        }
+
+        public async Task<bool> isDBHasUser(UserModel user)
+        {
+            return await _userRepository.isDataBaseHasUser(user);
         }
 
         public UserService(BaseRepository<UserModel> baseRepository)

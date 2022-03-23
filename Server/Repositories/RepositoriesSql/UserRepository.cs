@@ -21,24 +21,30 @@ namespace Repositories.Repositories
             _signInManager = signInManager;
         }
 
+        public override async Task<bool> isDataBaseHasUser(UserModel item)
+        {
+            return (await _db.Users.FirstOrDefaultAsync(u => (u.NickName == item.NickName) || (u.Email == item.Email))) == null ? false : true;
+        }
+
         public override async Task<UserModel> CreateAsync(UserModel item)
         {
-            var user = new IdentityUser
-            {
-                UserName = item.Name,
-                Email = item.Email
-            };
-            var result = await _userManager.CreateAsync(user, item.Password);
 
-            if (result.Succeeded)
-            {
-                //await _signInManager.SignInAsync(user, isPersistent: false);
-                await _db.Users.AddAsync(item);
-                _db.SaveChanges();
-                return item;
-            }
+                var user = new IdentityUser
+                {
+                    UserName = item.Name,
+                    Email = item.Email
+                };
+                var result = await _userManager.CreateAsync(user, item.Password);
 
-            return null;
+                if (result.Succeeded)
+                {
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _db.Users.AddAsync(item);
+                    _db.SaveChanges();
+                    return item;
+                }
+            
+                return null;
             
         }
 
@@ -51,6 +57,8 @@ namespace Repositories.Repositories
         {
             return await _db.Users.ToListAsync();
         }
+
+       
 
         public async override Task<UserModel> LoginAsync(UserModel item)
         {

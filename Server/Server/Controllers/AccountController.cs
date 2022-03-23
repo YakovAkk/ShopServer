@@ -24,6 +24,16 @@ namespace Server.Controllers
                 Email = registrationUser.Email,
                 Password = registrationUser.Password
             };
+
+            if(await _userService.isDBHasUser(user))
+            {
+                var message = new
+                {
+                    result = "The user has already been included to database "
+                };
+                return Ok(message);
+            }
+
             return Ok(await _userService.RegisterUserAsync(user));
         }
         [HttpPost("Login")]

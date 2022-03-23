@@ -15,5 +15,6 @@ namespace Services.Services.Base
         Task<UserModel> RegisterUserAsync(UserModel loginUser);
         Task<UserModel> LoginUserAsync(UserModel loginUser);
         Task LogoutUserAsync();
+        Task<bool> isDBHasUser(UserModel user);
     }
 }
