@@ -55,6 +55,9 @@ builder.Services.AddTransient<BaseServiceForMongo<CategoryModel>, CategoryServic
 builder.Services.AddTransient<MongoDbBase<LegoModel>, LegoRepository>();
 builder.Services.AddTransient<BaseServiceForMongo<LegoModel>, LegoService>();
 
+builder.Services.AddTransient<MongoDbBase<UserHistoryModel>, HistoryRepository>();
+builder.Services.AddTransient<BaseServiceForMongo<UserHistoryModel>, HistoryService>();
+
 builder.Services.AddTransient<ISendToMail, SendToMailService>();
 
 builder.Services.AddDbContext<AppDBContent>(options =>
