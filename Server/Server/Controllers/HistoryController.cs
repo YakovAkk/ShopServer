@@ -38,6 +38,12 @@ namespace Server.Controllers
             return Ok(await _historyService.AddAsync(userHistory));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            return Ok(await _historyService.GetAllAsync());
+        }
+
         public HistoryController(BaseServiceForMongo<UserHistoryModel> historyService, IUserService userService)
         {
             _historyService = historyService;
