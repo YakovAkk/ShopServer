@@ -16,7 +16,12 @@ namespace Server.Controllers
         
         public async Task<IActionResult> GetAllUsers()
         {
-            return Ok(await _userService.GetAllUsersAsync());
+            var result = await _userService.GetAllUsersAsync();
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
 
 

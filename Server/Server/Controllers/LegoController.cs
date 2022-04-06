@@ -15,7 +15,13 @@ namespace Server.Controllers
         [HttpPost]
         public async Task<IActionResult> AddLego([FromBody] LegoModel legoModel)
         {
-            return Ok(await _legoService.AddAsync(legoModel));
+            var result = await _legoService.AddAsync(legoModel);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
+         
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLego([FromQuery] string Id)
@@ -27,19 +33,34 @@ namespace Server.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAllLego()
         {
-            return Ok(await _legoService.GetAllAsync());
+            var result = await _legoService.GetAllAsync();
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateLego([FromBody] LegoModel legoModel)
         {
-            return Ok(await _legoService.UpdateAsync(legoModel));
+            var result = await _legoService.UpdateAsync(legoModel);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
 
         [HttpGet("id")]
         public async Task<IActionResult> GetByIdLego([FromQuery] string Id)
         {
-            return Ok(await _legoService.GetByIDAsync(Id));
+            var result = await _legoService.GetByIDAsync(Id);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
 
         public LegoController(BaseServiceForMongo<LegoModel> legoService)

@@ -16,7 +16,12 @@ namespace Server.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCategory([FromBody] CategoryModel categoryModel)
         {
-            return Ok(await _categoryService.AddAsync(categoryModel));
+            var result = await _categoryService.AddAsync(categoryModel);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory([FromQuery] string Id)
@@ -28,19 +33,35 @@ namespace Server.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAllCategories()
         {
-            return Ok(await _categoryService.GetAllAsync());
+            var result = await _categoryService.GetAllAsync();
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateCategory([FromBody] CategoryModel categoryModel)
         {
-            return Ok(await _categoryService.UpdateAsync(categoryModel));
+            var result = await _categoryService.UpdateAsync(categoryModel);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
 
         [HttpGet("id")]
         public async Task<IActionResult> GetByIdCategory([FromQuery] string Id)
         {
-            return Ok(await _categoryService.GetByIDAsync(Id));
+
+            var result = await _categoryService.GetByIDAsync(Id);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
 
         public CategoryController(BaseServiceForMongo<CategoryModel> categoryService)

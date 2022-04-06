@@ -24,7 +24,14 @@ namespace Server.Controllers
                 Lego = basketModel.lego,
                 User = await _userService.FindByEmailAsync(basketModel.userEmail)
             };
-            return Ok(await _basketService.AddAsync(basket));
+
+            var result = await _basketService.AddAsync(basket);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
             
         }
         [HttpDelete("{id}")]
@@ -37,7 +44,13 @@ namespace Server.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAllBaskets()
         {
-            return Ok(await _basketService.GetAllAsync());
+            var result = await _basketService.GetAllAsync();
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
         }
 
         [HttpPut]
@@ -50,13 +63,25 @@ namespace Server.Controllers
                 User = await _userService.FindByEmailAsync(basketModel.userEmail)
             };
 
-            return Ok(await _basketService.UpdateAsync(basket));
+            var result = await _basketService.UpdateAsync(basket);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
         }
 
         [HttpGet("id")]
         public async Task<IActionResult> GetByIdBasketAsync([FromQuery] string Id)
         {
-            return Ok(await _basketService.GetByIDAsync(Id));
+            var result = await _basketService.GetByIDAsync(Id);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
         }
 
         public BasketController(BaseServiceForMongo<BasketModel> basketService, IUserService userService)

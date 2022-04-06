@@ -31,7 +31,7 @@ namespace Server.Controllers
                 {
                     result = "The user has already been included to database "
                 };
-                return Ok(message);
+                return BadRequest(message);
             }
 
             return Ok(await _userService.RegisterUserAsync(user));
@@ -47,7 +47,12 @@ namespace Server.Controllers
                 RememberMe = loginUser.RememberMe
             };
 
-            return Ok(await _userService.LoginUserAsync(user));
+            if(await _userService.LoginUserAsync(user) == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
         [HttpPost("Logout")]
         public async Task<IActionResult> logoutUser([FromBody] UserLoginDTO loginUser)

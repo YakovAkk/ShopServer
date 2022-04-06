@@ -35,13 +35,25 @@ namespace Server.Controllers
                 User = await _userService.FindByEmailAsync(userHistoryDTO.userEmail)
             };
 
-            return Ok(await _historyService.AddAsync(userHistory));
+
+
+            var result = await _historyService.AddAsync(userHistory);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _historyService.GetAllAsync());
+            var result = await _historyService.GetAllAsync();
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
 
         public HistoryController(BaseServiceForMongo<UserHistoryModel> historyService, IUserService userService)
