@@ -39,6 +39,11 @@ namespace Server.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> LoginUser([FromBody] UserLoginDTO loginUser)
         {
+            if (loginUser == null || string.IsNullOrEmpty(loginUser.Email) || string.IsNullOrEmpty(loginUser.Password))
+            {
+                return BadRequest("Input data not valid");
+            }
+
             var user = new UserModel()
             {
                 Name = loginUser.Email,
@@ -47,12 +52,13 @@ namespace Server.Controllers
                 RememberMe = loginUser.RememberMe
             };
 
-            if(await _userService.LoginUserAsync(user) == null)
+            var loggedInModel = await _userService.LoginUserAsync(user);
+            if (loggedInModel == null)
             {
-                return BadRequest();
+                return BadRequest("User can not be logged in, check your credentials!");
             }
 
-            return Ok();
+            return Ok(loggedInModel);
         }
         [HttpPost("Logout")]
         public async Task<IActionResult> logoutUser([FromBody] UserLoginDTO loginUser)
