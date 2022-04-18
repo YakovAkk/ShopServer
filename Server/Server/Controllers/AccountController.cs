@@ -52,7 +52,7 @@ namespace Server.Controllers
                 return BadRequest();
             }
 
-            return Ok();
+            return Ok(await _userService.LoginUserAsync(user));
         }
         [HttpPost("Logout")]
         public async Task<IActionResult> logoutUser([FromBody] UserLoginDTO loginUser)
