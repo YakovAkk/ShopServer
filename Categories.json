@@ -1,49 +1,25 @@
 [{
-  "_id": {
-    "$oid": "621635642d46200352cd275c"
-  },
-  "Name": "Hollow",
-  "ImageUrl": "https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/60f14b67699307.5b4373d31981d.jpg"
+  "name": "Hollow",
+  "imageUrl": "https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/60f14b67699307.5b4373d31981d.jpg"
 },{
-  "_id": {
-    "$oid": "621635772d46200352cd275d"
-  },
-  "Name": "Star wars",
-  "ImageUrl": "https://cdn.mos.cms.futurecdn.net/i66iDwcLjkeM9xfyUovn7Z-970-80.jpeg.webp"
+  "name": "Star wars",
+  "imageUrl": "https://cdn.mos.cms.futurecdn.net/i66iDwcLjkeM9xfyUovn7Z-970-80.jpeg.webp"
 },{
-  "_id": {
-    "$oid": "621635952d46200352cd275e"
-  },
-  "Name": "Technic",
-  "ImageUrl": "https://www.lego.com/cdn/cs/set/assets/bltd13aa93d1b640045/42083.jpg"
+  "name": "Technic",
+  "imageUrl": "https://www.lego.com/cdn/cs/set/assets/bltd13aa93d1b640045/42083.jpg"
 },{
-  "_id": {
-    "$oid": "6216359f2d46200352cd275f"
-  },
-  "Name": "Town",
-  "ImageUrl": "https://bi.ua/uploaded-images/products/505988_1.jpg"
+  "name": "Town",
+  "imageUrl": "https://bi.ua/uploaded-images/products/505988_1.jpg"
 },{
-  "_id": {
-    "$oid": "621635ae2d46200352cd2760"
-  },
-  "Name": "Bionicle",
-  "ImageUrl": "https://kupi.cn.ua/upload/shop/pos/141338/4b-konstruktor-lego-bionicle-tahu-obedinitel-ognya-71308.webp"
+  "name": "Bionicle",
+  "imageUrl": "https://kupi.cn.ua/upload/shop/pos/141338/4b-konstruktor-lego-bionicle-tahu-obedinitel-ognya-71308.webp"
 },{
-  "_id": {
-    "$oid": "621635bc2d46200352cd2761"
-  },
-  "Name": "Ninja",
-  "ImageUrl": "https://content1.rozetka.com.ua/goods/images/big/192554708.jpg"
+  "name": "Ninja",
+  "imageUrl": "https://content1.rozetka.com.ua/goods/images/big/192554708.jpg"
 },{
-  "_id": {
-    "$oid": "621635c82d46200352cd2762"
-  },
-  "Name": "Friends",
-  "ImageUrl": "https://hotline.ua/img/tx/239/2394057695.jpg"
+  "name": "Friends",
+  "imageUrl": "https://hotline.ua/img/tx/239/2394057695.jpg"
 },{
-  "_id": {
-    "$oid": "621635d42d46200352cd2763"
-  },
-  "Name": "Railway",
-  "ImageUrl": "https://i.ytimg.com/vi/OrAfEduN6rA/maxresdefault.jpg"
+  "name": "Railway",
+  "imageUrl": "https://i.ytimg.com/vi/OrAfEduN6rA/maxresdefault.jpg"
 }]
