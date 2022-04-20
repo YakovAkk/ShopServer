@@ -14,6 +14,12 @@ namespace DataDomain.Data.NoSql.Models
         public string? Id { get; set; }
         public UserModel User { get; set; }
         public List<BasketModel> Orders { get; set; }
+        public string? messageThatWrong { get; set; }
+
+        public UserHistoryModel()
+        {
+
+        }
 
     }
 }

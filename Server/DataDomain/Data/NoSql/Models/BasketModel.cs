@@ -16,6 +16,7 @@ namespace DataDomain.Data.NoSql.Models
         public UserModel User { get; set; }
         public uint Amount { get; set; }
         public DateTime DateDeal { get; set; }
+        public string? messageThatWrong { get; set; }
 
         public BasketModel()
         {

@@ -25,7 +25,9 @@ namespace Server.Controllers
                 Password = registrationUser.Password
             };
 
-            if(await _userService.isDBHasUser(user))
+            var isHasUser = await _userService.isDBHasUser(user);
+
+            if (isHasUser)
             {
                 var message = new
                 {
@@ -34,7 +36,17 @@ namespace Server.Controllers
                 return BadRequest(message);
             }
 
-            return Ok(await _userService.RegisterUserAsync(user));
+           var userModel = await _userService.RegisterUserAsync(user);
+           if(userModel == null)
+           {
+                var message = new
+                {
+                    result = "The user has already been included to database "
+                };
+                return BadRequest(message);
+            }
+
+            return Ok(userModel);
         }
         [HttpPost("Login")]
         public async Task<IActionResult> LoginUser([FromBody] UserLoginDTO loginUser)

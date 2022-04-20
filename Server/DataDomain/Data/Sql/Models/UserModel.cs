@@ -11,11 +11,11 @@ namespace DataDomain.Data.Sql.Models
         public string Password { get; set; }
         public bool RememberMe { get; set; }
         public DateTime DataRegistration { get; set; }
+        public string? messageThatWrong { get; set; }
 
         public UserModel()
         {
             DataRegistration = DateTime.Now;
         }
-
     }
 }
