@@ -12,17 +12,24 @@ namespace Server.Controllers
     {
         private readonly BaseServiceForMongo<LegoModel> _legoService;
 
+        public LegoController(BaseServiceForMongo<LegoModel> legoService)
+        {
+            _legoService = legoService;
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddLego([FromBody] LegoModel legoModel)
         {
             var result = await _legoService.AddAsync(legoModel);
-            if (result == null)
+
+            if (result.messageThatWrong != null)
             {
-                return BadRequest();
+                return BadRequest(result.messageThatWrong);
             }
             return Ok(result);
          
         }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLego([FromQuery] string Id)
         {
@@ -34,10 +41,16 @@ namespace Server.Controllers
         public async Task<IActionResult> GetAllLego()
         {
             var result = await _legoService.GetAllAsync();
+
             if (result == null)
             {
-                return BadRequest();
+                var message = new
+                {
+                    result = "Database hasn't any lego items"
+                };
+                return BadRequest(message);
             }
+
             return Ok(result);
         }
 
@@ -45,10 +58,12 @@ namespace Server.Controllers
         public async Task<IActionResult> UpdateLego([FromBody] LegoModel legoModel)
         {
             var result = await _legoService.UpdateAsync(legoModel);
-            if (result == null)
+
+            if (result.messageThatWrong != null)
             {
-                return BadRequest();
+                return BadRequest(result.messageThatWrong);
             }
+
             return Ok(result);
         }
 
@@ -56,16 +71,14 @@ namespace Server.Controllers
         public async Task<IActionResult> GetByIdLego([FromQuery] string Id)
         {
             var result = await _legoService.GetByIDAsync(Id);
-            if (result == null)
+
+            if (result.messageThatWrong != null)
             {
-                return BadRequest();
+                return BadRequest(result.messageThatWrong);
             }
+
             return Ok(result);
         }
 
-        public LegoController(BaseServiceForMongo<LegoModel> legoService)
-        {
-            _legoService = legoService;
-        }
     }
 }

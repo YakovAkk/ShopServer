@@ -13,14 +13,21 @@ namespace Server.Controllers
     {
         private readonly BaseServiceForMongo<CategoryModel> _categoryService;
 
+        public CategoryController(BaseServiceForMongo<CategoryModel> categoryService)
+        {
+            _categoryService = categoryService;
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddCategory([FromBody] CategoryModel categoryModel)
         {
             var result = await _categoryService.AddAsync(categoryModel);
-            if (result == null)
+
+            if (result.messageThatWrong != null)
             {
-                return BadRequest();
+                return BadRequest(result.messageThatWrong);
             }
+
             return Ok(result);
         }
         [HttpDelete("{id}")]
@@ -34,10 +41,16 @@ namespace Server.Controllers
         public async Task<IActionResult> GetAllCategories()
         {
             var result = await _categoryService.GetAllAsync();
+
             if (result == null)
             {
-                return BadRequest();
+                var message = new
+                {
+                    result = "Database hasn't any category"
+                };
+                return BadRequest(message);
             }
+
             return Ok(result);
         }
 
@@ -45,9 +58,9 @@ namespace Server.Controllers
         public async Task<IActionResult> UpdateCategory([FromBody] CategoryModel categoryModel)
         {
             var result = await _categoryService.UpdateAsync(categoryModel);
-            if (result == null)
+            if (result.messageThatWrong != null)
             {
-                return BadRequest();
+                return BadRequest(result.messageThatWrong);
             }
             return Ok(result);
         }
@@ -55,18 +68,12 @@ namespace Server.Controllers
         [HttpGet("id")]
         public async Task<IActionResult> GetByIdCategory([FromQuery] string Id)
         {
-
             var result = await _categoryService.GetByIDAsync(Id);
-            if (result == null)
+            if (result.messageThatWrong != null)
             {
-                return BadRequest();
+                return BadRequest(result.messageThatWrong);
             }
             return Ok(result);
-        }
-
-        public CategoryController(BaseServiceForMongo<CategoryModel> categoryService)
-        {
-            _categoryService = categoryService;
-        }
+        }    
     }
 }

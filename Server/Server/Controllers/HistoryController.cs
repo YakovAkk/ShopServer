@@ -14,6 +14,13 @@ namespace Server.Controllers
     {
         private readonly BaseServiceForMongo<UserHistoryModel> _historyService;
         private readonly IUserService _userService;
+
+        public HistoryController(BaseServiceForMongo<UserHistoryModel> historyService, IUserService userService)
+        {
+            _historyService = historyService;
+            _userService = userService;
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddToHistory([FromBody] HistoryModelDTO userHistoryDTO)
         {
@@ -29,19 +36,26 @@ namespace Server.Controllers
                 });
             }
 
+            var user = await _userService.FindByEmailAsync(userHistoryDTO.userEmail);
+
+            if (user.messageThatWrong != null)
+            {
+                return BadRequest(user.messageThatWrong);
+            }
+
             var userHistory = new UserHistoryModel()
             {
                 Orders = Orsers,
-                User = await _userService.FindByEmailAsync(userHistoryDTO.userEmail)
+                User = user
             };
 
-
-
             var result = await _historyService.AddAsync(userHistory);
-            if (result == null)
+
+            if (result.messageThatWrong != null)
             {
-                return BadRequest();
+                return BadRequest(result.messageThatWrong);
             }
+
             return Ok(result);
         }
 
@@ -49,17 +63,17 @@ namespace Server.Controllers
         public async Task<IActionResult> GetAll()
         {
             var result = await _historyService.GetAllAsync();
+
             if (result == null)
             {
-                return BadRequest();
+                var message = new
+                {
+                    result = "Database hasn't any history item"
+                };
+                return BadRequest(message);
             }
-            return Ok(result);
-        }
 
-        public HistoryController(BaseServiceForMongo<UserHistoryModel> historyService, IUserService userService)
-        {
-            _historyService = historyService;
-            _userService = userService;
+            return Ok(result);
         }
     }
 }

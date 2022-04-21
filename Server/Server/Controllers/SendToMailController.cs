@@ -29,15 +29,22 @@ namespace Server.Controllers
             try
             {
                 await _mailService.SendToMailAsync(mailRequest);
-                return Ok();
+
+                var message = new
+                {
+                    result = "Email was sent successfully"
+                };
+
+                return Ok(message);
             }
             catch (Exception)
             {
-                return BadRequest(new
+                var message = new
                 {
-                    message = "Messaage can't be sent to customer"
-                });
-                
+                    result = "Messaage can't be sent to customer"
+                };
+
+                return BadRequest(message);
             }
         }
  

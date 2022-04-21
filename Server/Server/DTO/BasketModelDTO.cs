@@ -8,5 +8,9 @@ namespace Server.DTO
         public LegoModel lego { get; set; }
         public string userEmail { get; set; }
         public DateTime DateDeal { get; set; }
+        public BasketModelDTO()
+        {
+
+        }
     }
 }

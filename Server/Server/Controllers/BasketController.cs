@@ -15,6 +15,13 @@ namespace Server.Controllers
     {
         private readonly BaseServiceForMongo<BasketModel> _basketService;
         private readonly IUserService _userService;
+
+        public BasketController(BaseServiceForMongo<BasketModel> basketService, IUserService userService)
+        {
+            _basketService = basketService;
+            _userService = userService;
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddBasketAsync([FromBody] BasketModelDTO basketModel)
         {
@@ -26,9 +33,10 @@ namespace Server.Controllers
             };
 
             var result = await _basketService.AddAsync(basket);
-            if (result == null)
+
+            if (result.messageThatWrong != null)
             {
-                return BadRequest();
+                return BadRequest(result.messageThatWrong);
             }
 
             return Ok(result);
@@ -45,9 +53,14 @@ namespace Server.Controllers
         public async Task<IActionResult> GetAllBaskets()
         {
             var result = await _basketService.GetAllAsync();
-            if (result == null)
+
+            if (result.Count == 0)
             {
-                return BadRequest();
+                var message = new
+                {
+                    result = "Database hasn't any lego in the basket"
+                };
+                return BadRequest(message);
             }
 
             return Ok(result);
@@ -64,9 +77,10 @@ namespace Server.Controllers
             };
 
             var result = await _basketService.UpdateAsync(basket);
-            if (result == null)
+
+            if (result.messageThatWrong != null)
             {
-                return BadRequest();
+                return BadRequest(result.messageThatWrong);
             }
 
             return Ok(result);
@@ -76,18 +90,15 @@ namespace Server.Controllers
         public async Task<IActionResult> GetByIdBasketAsync([FromQuery] string Id)
         {
             var result = await _basketService.GetByIDAsync(Id);
-            if (result == null)
+
+            if (result.messageThatWrong != null)
             {
-                return BadRequest();
+                return BadRequest(result.messageThatWrong);
             }
 
             return Ok(result);
         }
 
-        public BasketController(BaseServiceForMongo<BasketModel> basketService, IUserService userService)
-        {
-            _basketService = basketService;
-            _userService = userService;
-        }
+        
     }
 }

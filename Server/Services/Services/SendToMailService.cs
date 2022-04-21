@@ -11,6 +11,10 @@ namespace Services.Services
     public class SendToMailService : ISendToMail
     {
         private readonly MailSettings _mailSettings;
+        public SendToMailService(IOptions<MailSettings> options)
+        {
+            _mailSettings = options.Value;
+        }
         public async Task SendToMailAsync(MailRequest mailRequest)
         {
             var email = new MimeMessage();
@@ -46,9 +50,6 @@ namespace Services.Services
             }
 
         }
-        public SendToMailService(IOptions<MailSettings> options)
-        {
-            _mailSettings = options.Value;
-        }
+
     }
 }

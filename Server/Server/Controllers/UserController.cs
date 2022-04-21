@@ -12,23 +12,27 @@ namespace Server.Controllers
     {
         private readonly IUserService _userService;
 
-        [HttpGet]
-        
-        public async Task<IActionResult> GetAllUsers()
-        {
-            var result = await _userService.GetAllUsersAsync();
-            if (result == null)
-            {
-                return BadRequest();
-            }
-            return Ok(result);
-        }
-
-
         public UserController(IUserService userService)
         {
             _userService = userService;
         }
 
+        [HttpGet]
+        
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var result = await _userService.GetAllUsersAsync();
+
+            if (result == null)
+            {
+                var message = new
+                {
+                    result = "Database hasn't any user"
+                };
+                return BadRequest(message);
+            }
+
+            return Ok(result);
+        }
     }
 }

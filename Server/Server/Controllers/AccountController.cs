@@ -14,6 +14,11 @@ namespace Server.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IUserService _userService;
+        public AccountController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterUser([FromBody] UserRegistrationDTO registrationUser)
         {
@@ -37,23 +42,25 @@ namespace Server.Controllers
             }
 
            var userModel = await _userService.RegisterUserAsync(user);
-           if(userModel == null)
-           {
-                var message = new
-                {
-                    result = "The user has already been included to database "
-                };
-                return BadRequest(message);
-            }
 
-            return Ok(userModel);
+           if(userModel.messageThatWrong != null)
+           {
+                return BadRequest(userModel.messageThatWrong);
+           }
+
+           return Ok(userModel);
         }
+
         [HttpPost("Login")]
         public async Task<IActionResult> LoginUser([FromBody] UserLoginDTO loginUser)
         {
             if (loginUser == null || string.IsNullOrEmpty(loginUser.Email) || string.IsNullOrEmpty(loginUser.Password))
             {
-                return BadRequest("Input data not valid");
+                var message = new
+                {
+                    result = "login or email is empty"
+                };
+                return BadRequest(message);
             }
 
             var user = new UserModel()
@@ -65,23 +72,20 @@ namespace Server.Controllers
             };
 
             var loggedInModel = await _userService.LoginUserAsync(user);
-            if (loggedInModel == null)
+
+            if (loggedInModel.messageThatWrong != null)
             {
-                return BadRequest("User can not be logged in, check your credentials!");
+                return BadRequest(loggedInModel.messageThatWrong);
             }
 
             return Ok(loggedInModel);
         }
+
         [HttpPost("Logout")]
         public async Task<IActionResult> logoutUser([FromBody] UserLoginDTO loginUser)
         {
             await _userService.LogoutUserAsync();
             return Ok(loginUser);
         }
-        public AccountController(IUserService userService)
-        {
-            _userService = userService;
-        }
-
     }
 }

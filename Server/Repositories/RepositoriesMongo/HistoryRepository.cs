@@ -8,7 +8,6 @@ namespace Repositories.RepositoriesMongo
     public class HistoryRepository : MongoDbBase<UserHistoryModel>
     {
         protected override IMongoCollection<UserHistoryModel> Collection { get; set; }
-
         public override async Task<UserHistoryModel> AddAsync(UserHistoryModel item)
         {
             if (item == null)
@@ -53,7 +52,6 @@ namespace Repositories.RepositoriesMongo
 
             return story;
         }
-
         public override async Task<UserHistoryModel> UpdateAsync(UserHistoryModel item)
         {
             if (item == null)

@@ -12,10 +12,5 @@ namespace DataDomain.Data.Sql.Database
         {
             Database.EnsureCreated();
         }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=LegoDB;Trusted_Connection=True;TrustServerCertificate=True;");
-        //}
     }
 }
