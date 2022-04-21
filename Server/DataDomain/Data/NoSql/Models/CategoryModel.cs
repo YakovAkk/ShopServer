@@ -13,6 +13,12 @@ namespace DataDomain.Data.NoSql.Models
         public string? Id { get; set; }
         public string Name { get; set; }
         public string ImageUrl { get; set; }
+        public string? messageThatWrong { get; set; }
+
+        public CategoryModel()
+        {
+
+        }
 
     }
 }

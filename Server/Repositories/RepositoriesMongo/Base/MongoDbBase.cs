@@ -35,11 +35,21 @@ namespace Repositories.RepositoriesMongo.Base
         }
         public async virtual Task<List<T>> GetAllAsync()
         {
-            return await Collection.Find(_ => true).ToListAsync();
+            var collection = await Collection.Find(_ => true).ToListAsync();
+            if(collection == null)
+            {
+                return new List<T>();
+            }
+            return collection;
         }
         public async virtual Task<T> GetByIDAsync(string id)
         {
-            return await Collection.Find(new BsonDocument("_id", new ObjectId(id))).FirstOrDefaultAsync();
+            var item = await Collection.Find(new BsonDocument("_id", new ObjectId(id))).FirstOrDefaultAsync();
+            if(item == null)
+            {
+                return default(T);
+            }
+            return item;
         }
         public abstract Task<T> UpdateAsync(T item);
     }

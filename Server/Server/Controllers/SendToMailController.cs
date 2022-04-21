@@ -12,6 +12,11 @@ namespace Server.Controllers
     public class SendToMailController : ControllerBase
     {
         private readonly ISendToMail _mailService;
+        public SendToMailController(ISendToMail sendService)
+        {
+            _mailService = sendService;
+        }
+        
         [HttpPost]
         public async Task<IActionResult> SendToMail([FromBody] MessageToMailDTO mail)
         {
@@ -35,10 +40,6 @@ namespace Server.Controllers
                 
             }
         }
-
-        public SendToMailController(ISendToMail sendService)
-        {
-            _mailService = sendService;
-        }
+ 
     }
 }
