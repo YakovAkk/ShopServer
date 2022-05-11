@@ -10,7 +10,7 @@ namespace Server.DTO
         public DateTime DateDeal { get; set; }
         public BasketModelDTO()
         {
-
+            
         }
     }
 }
