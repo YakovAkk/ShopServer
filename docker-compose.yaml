@@ -22,7 +22,7 @@ services:
       ACCEPT_EULA: "Y"
     restart: always
 
-  api:
+  backend:
     image: yakovfullstack/asp-server
     container_name: server_container
     ports:
@@ -32,6 +32,14 @@ services:
       - db_mongo
       - db_sql
     restart: always
+
+  client:
+    image: yakovfullstack/angular-client
+    container_name: client_container
+    ports:
+      - 4200:80
+    depends_on:
+      - backend
 
 volumes:
   mongo_db : {}
