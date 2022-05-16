@@ -1,0 +1,46 @@
+version: '3.4'
+
+services:
+  server:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+      - "443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+   
+  db_sql:
+    image: "mcr.microsoft.com/mssql/server:latest"
+    container_name: sql-db_container
+    ports:
+      - 1433:1433
+    volumes:
+      - sql_db:/data/db_sql
+    environment:
+      SA_PASSWORD: "123qweasd"
+      ACCEPT_EULA: "Y"
+    restart: always
+      
+  db_mongo:
+    image: mongo:latest
+    container_name: mongo-db_container
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_db:/data/db_mongo
+    restart: always
+
+  client:
+    image: yakovfullstack/angular-client
+    container_name: client_container
+    restart: always
+    ports:
+      - 4200:100
+    depends_on:
+      - server
+volumes:
+  mongo_db : {}
+  sql_db : {} 
